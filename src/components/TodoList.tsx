@@ -8,7 +8,6 @@ type Props = {
     onDelete: (id: string) => void;
 }
 const TodoList = ({ todos, onUpdate, onDelete }: Props) => {
-
     return (
         <FlatList
             data={todos}

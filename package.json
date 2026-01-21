@@ -10,9 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.83.1",
+    "expo": "^54.0.31",
+    "expo-intent-launcher": "~13.0.8",
+    "expo-local-authentication": "~17.0.8",
+    "expo-modules-core": "~3.0.29",
     "react": "19.2.0",
     "react-native": "0.83.1",
-    "@react-native/new-app-screen": "0.83.1",
     "react-native-safe-area-context": "^5.5.2"
   },
   "devDependencies": {

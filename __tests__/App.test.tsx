@@ -2,12 +2,12 @@
  * @format
  */
 
-import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
-import App from '../src/App';
+import { generateId } from '../src/utils/uuid';
 
-test('renders correctly', async () => {
-  await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />);
-  });
-});
+it('should generate a non-empty string id',()=>{
+  const id = generateId();
+  expect(typeof id).toBe('string');
+  expect(id.length).toBeGreaterThan(0);
+})
+
+

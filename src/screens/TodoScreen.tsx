@@ -1,18 +1,55 @@
-import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
+import { Alert, KeyboardAvoidingView, StyleSheet } from "react-native";
 import TodoInput from "../components/TodoInput";
 import { useState } from "react";
 import { Todo } from "../types/todo";
 import { generateId } from "../utils/uuid";
 import TodoList from "../components/TodoList";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { authenticateUser, redirectToSettings } from "../utils/biometricAuth";
+
+// handles biometric authentication flow and returns whether authentication succeeded
+const handleAuth = async (): Promise<boolean> => {
+    const result = await authenticateUser();
+    // Authentication successful
+    if (result.success) return true;
+
+    //Device does not support biometric hardware
+    if (result.errorType === 'NO_HARDWARE') {
+        Alert.alert('Biometric not supported',
+            'This device does not support biometric authentication.',
+            [{ text: 'Ok' }]
+        );
+        return false;
+    }
+
+    // Device authentication is not enabled, alert user and redirect to settings to enable it first.
+    if (result.errorType === 'NOT_ENROLLED') {
+        Alert.alert('Biometric not set up',
+            'Please enable biometric authentication in your device settings to continue.',
+            [{ text: 'Cancel', style: 'cancel' },
+            {
+                text: 'Open Settings',
+                onPress: () => redirectToSettings(),
+            }
+            ]
+
+        );
+        return false;
+    }
+
+    return false;
+}
 
 const TodoScreen = () => {
 
     const [todos, setTodos] = useState<Todo[]>([]);
     const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
-    const addTodo = (title: string) => {
-        console.log(title)
+    // adds new todo item with authentication
+    const addTodo = async (title: string) => {
+        const authenticated = await handleAuth();
+        if (!authenticated) return;
+
         const newTodo: Todo = {
             id: generateId(),
             title: title
@@ -20,8 +57,11 @@ const TodoScreen = () => {
         setTodos(prev => [...prev, newTodo]);
     }
 
-    const updateTodo = (title: string) => {
-        console.log(title)
+    // updates existing todo item with auth
+    const updateTodo = async (title: string) => {
+        const authenticated = await handleAuth();
+        if (!authenticated) return;
+
         if (!editingTodo) return;
         setTodos(prev =>
             prev.map(todo =>
@@ -31,7 +71,10 @@ const TodoScreen = () => {
         setEditingTodo(null);
     };
 
-    const deleteTodo = (id: string) => {
+    // deletes todo by id
+    const deleteTodo = async (id: string) => {
+        const authenticated = await handleAuth();
+        if (!authenticated) return;
         setTodos(prev => prev.filter(todo => todo.id !== id));
         setEditingTodo(null);
     }
@@ -39,22 +82,22 @@ const TodoScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={styles.container}>
-            <TodoList
-                todos={todos}
-                onUpdate={setEditingTodo}
-                onDelete={deleteTodo} />
-            <TodoInput
-                onAdd={addTodo}
-                onUpdate={updateTodo}
-                editingTodo={editingTodo} />
-                </KeyboardAvoidingView>
+                <TodoList
+                    todos={todos}
+                    onUpdate={setEditingTodo}
+                    onDelete={deleteTodo} />
+                <TodoInput
+                    onAdd={addTodo}
+                    onUpdate={updateTodo}
+                    editingTodo={editingTodo} />
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
     }
 });
 

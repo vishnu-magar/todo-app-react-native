@@ -12,12 +12,14 @@ type Props = {
 const TodoInput = ({ onAdd, onUpdate, editingTodo }: Props) => {
     const [text, setText] = useState('');
 
+    // set existing todo for input text in case of updating
     useEffect(() => {
         if (editingTodo) {
             setText(editingTodo.title);
         }
     }, [editingTodo]);
 
+    // add a new todo or update the existing one.
     const handleSubmit = () => {
         if (!text.trim()) return;
         editingTodo ? onUpdate(text) : onAdd(text);

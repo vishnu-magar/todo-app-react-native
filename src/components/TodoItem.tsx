@@ -10,7 +10,7 @@ type Props = {
 const TodoItem = ({ todo, onUpdate, onDelete }: Props) => {
     return (
         <View style={styles.container}>
-            <Text>{todo.title}</Text>
+            <Text style={styles.text}>{todo.title}</Text>
             <View style={styles.actions}>
                 <TouchableOpacity onPress={() => onUpdate(todo)}>
                     <Text style={styles.edit}>Edit</Text>
@@ -33,15 +33,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 5,
         elevation:2,
-        backgroundColor:"#F5F5F5"
+        backgroundColor: colors.background
     },
     actions:{
         flexDirection: 'row',
         marginTop:12,
         justifyContent: 'flex-end',
     },
+    text:{
+        color:colors.text,
+    },
     edit:{
-        color:colors.primary,
+        color:colors.secondary,
         marginRight:16,
     },
     delete:{
