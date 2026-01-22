@@ -6,6 +6,7 @@ import { generateId } from "../utils/uuid";
 import TodoList from "../components/TodoList";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { authenticateUser, redirectToSettings } from "../utils/biometricAuth";
+import Header from "../components/Header";
 
 // handles biometric authentication flow and returns whether authentication succeeded
 const handleAuth = async (): Promise<boolean> => {
@@ -82,6 +83,7 @@ const TodoScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={styles.container}>
+                <Header/>
                 <TodoList
                     todos={todos}
                     onUpdate={setEditingTodo}

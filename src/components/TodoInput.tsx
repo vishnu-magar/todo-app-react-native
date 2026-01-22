@@ -35,7 +35,7 @@ const TodoInput = ({ onAdd, onUpdate, editingTodo }: Props) => {
                 placeholder="Add a todo..."
             />
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text>{editingTodo ? 'Update' : 'Add'}</Text>
+                <Text style={{color:'#FFFFFF'}}>{editingTodo ? 'Update' : 'Add'}</Text>
             </TouchableOpacity>
         </View>
     );
