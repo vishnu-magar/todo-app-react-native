@@ -5,9 +5,9 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ## App Demo
 
-
-
 https://github.com/user-attachments/assets/7bc9aa23-03ef-4b5d-b1e2-bd0920f80ced
+
+https://github.com/user-attachments/assets/28000cc1-48a2-416a-81e0-6e7e96052fda
 
 
 A simple Todo application built with React Native and TypeScript.
