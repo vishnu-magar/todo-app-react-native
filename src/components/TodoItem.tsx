@@ -12,11 +12,11 @@ const TodoItem = ({ todo, onUpdate, onDelete }: Props) => {
         <View style={styles.container}>
             <Text style={styles.text}>{todo.title}</Text>
             <View style={styles.actions}>
-                <TouchableOpacity onPress={() => onUpdate(todo)}>
-                    <Text style={styles.edit}>Edit</Text>
+                <TouchableOpacity style={styles.buttonEdit} onPress={() => onUpdate(todo)}>
+                    <Text style={styles.buttonText}>Update</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => onDelete(todo.id)}>
-                    <Text style={styles.delete}>Delete</Text>
+                <TouchableOpacity style={styles.buttonDelete} onPress={() => onDelete(todo.id)}>
+                    <Text style={styles.buttonText}>Delete</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -25,7 +25,8 @@ const TodoItem = ({ todo, onUpdate, onDelete }: Props) => {
 
 const styles = StyleSheet.create({
     container:{
-        padding:16,
+        paddingVertical:16,
+        paddingStart:16,
         marginHorizontal:16,
         marginVertical:8,
         borderRadius:10,
@@ -43,13 +44,24 @@ const styles = StyleSheet.create({
     text:{
         color:colors.text,
     },
-    edit:{
-        color:colors.secondary,
-        marginRight:16,
+    buttonEdit: {
+        backgroundColor: colors.secondary,
+        marginRight: 16,
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 6,
     },
-    delete:{
-        color:colors.danger
-    }
+    buttonDelete: {
+        backgroundColor: colors.primary,
+        marginRight: 16,
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 6,
+    },
+    buttonText:{
+        color:'#FFFFFF',
+        
+    },
 });
 
 export default TodoItem;
