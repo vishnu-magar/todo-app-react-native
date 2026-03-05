@@ -4,7 +4,7 @@ import { colors } from "../theme/colors";
 const Header =()=>{
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Todos</Text>
+            <Text style={styles.title}>Todos are here</Text>
         </View>
     );
 }
