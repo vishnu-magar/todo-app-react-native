@@ -20,5 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run lint checks
+        run: npm run lint
+        
+      - name: Run type checks
+        run: npm run typecheck
+
       - name: Run tests
         run: npm test
