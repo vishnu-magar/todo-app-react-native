@@ -4,6 +4,8 @@ import { authenticateUser } from '../src/utils/biometricAuth';
 
 jest.mock('expo-local-authentication');
 
+const mockedLocalAuthentication = LocalAuthentication as jest.Mocked<typeof LocalAuthentication>;
+
 describe('authenticateUser', () => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -11,7 +13,7 @@ describe('authenticateUser', () => {
 
     it('returns NO_HARDWARE when device has no biometric support', async () => {
 
-        LocalAuthentication.hasHardwareAsync.mockResolvedValue(false);
+        mockedLocalAuthentication.hasHardwareAsync.mockResolvedValue(false);
 
         const result = await authenticateUser();
 
@@ -23,9 +25,9 @@ describe('authenticateUser', () => {
     });
 
     it('returns success when authentication succeeds', async () => {
-        LocalAuthentication.hasHardwareAsync.mockResolvedValue(true);
-        LocalAuthentication.isEnrolledAsync.mockResolvedValue(true);
-        LocalAuthentication.authenticateAsync.mockResolvedValue({ success: true });
+        mockedLocalAuthentication.hasHardwareAsync.mockResolvedValue(true);
+        mockedLocalAuthentication.isEnrolledAsync.mockResolvedValue(true);
+        mockedLocalAuthentication.authenticateAsync.mockResolvedValue({ success: true });
 
         const result = await authenticateUser();
 
