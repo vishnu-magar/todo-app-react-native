@@ -44,6 +44,7 @@ export const redirectToSettings = () => {
             IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.SECURITY_SETTINGS);
         }
     } catch (error) {
+        console.log('Error opening settings:', error);
         Linking.openSettings();
     }
 }

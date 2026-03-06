@@ -15,10 +15,17 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '25.6.1'
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run lint checks
+        run: npm run lint
+        
+      - name: Run type checks
+        run: npm run typecheck
 
       - name: Run tests
         run: npm test
